@@ -32,6 +32,7 @@ namespace Lab3_Condominio
                     writer.WriteLine(p.Dpi);
                     writer.WriteLine(p.Nombre);
                     writer.WriteLine(p.Apellido);
+                    writer.WriteLine(p.Cont);
                 }
                 writer.Close();
                 string[] dpis = new string[persona.Count];
@@ -47,7 +48,8 @@ namespace Lab3_Condominio
 
                 foreach (var p in propiedad)
                 {
-                    writer.WriteLine(p.Dpi);
+                    writer.WriteLine(p.Nombre);
+                    writer.WriteLine(p.Apellido);
                     writer.WriteLine(p.Nocasa);
                     writer.WriteLine(p.Cuota);
                 }
@@ -67,6 +69,7 @@ namespace Lab3_Condominio
                     datos.Dpi = reader.ReadLine();
                     datos.Nombre = reader.ReadLine();
                     datos.Apellido = reader.ReadLine();
+                    datos.Cont = int.Parse(reader.ReadLine());
                     persona.Add(datos);
                 }
                 //Cerrar el archivo, esta linea es importante porque sino despues de correr varias veces el programa daría error de que el archivo quedó abierto muchas veces. Entonces es necesario cerrarlo despues de terminar de leerlo.
@@ -84,7 +87,8 @@ namespace Lab3_Condominio
                 while (reader.Peek() > -1)
                 {
                     Casa datos = new Casa();
-                    datos.Dpi = reader.ReadLine();
+                    datos.Nombre = reader.ReadLine();
+                    datos.Apellido = reader.ReadLine();
                     datos.Nocasa = reader.ReadLine();
                     datos.Cuota = float.Parse(reader.ReadLine());
                     propiedad.Add(datos);
@@ -110,6 +114,9 @@ namespace Lab3_Condominio
             if (!leer2.Equals(""))
             {
                 Leer(false);
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = propiedad;
+                dataGridView1.Refresh();
             }
         }
 
@@ -145,10 +152,14 @@ namespace Lab3_Condominio
                 if (propiedad[i].Nocasa == casa_txt.Text) c++;
             if (c == 0)
             {
-                agregarc.Dpi = dpi_cbx.Text;
-                agregarc.Nocasa = nombre_txt.Text;
+                Propietario nom = persona.Find(p => p.Dpi == dpi_cbx.Text);
+                nom.Cont+=1;
+                agregarc.Nombre = nom.Nombre;
+                agregarc.Apellido = nom.Apellido;
+                agregarc.Nocasa = casa_txt.Text;
                 agregarc.Cuota = float.Parse(cuota_txt.Text);
                 propiedad.Add(agregarc);
+                guardar(true);
                 guardar(false);
                 propiedad = propiedad.OrderBy(p => p.Cuota).ToList();
                 dataGridView1.DataSource = null;
