@@ -21,7 +21,7 @@ namespace Lab3_Condominio
         }
         private void guardar(bool cp)
         {
-            if(cp==true)
+            if (cp == true)
             {
                 FileStream stream = new FileStream("Propietario.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(stream);
@@ -58,7 +58,7 @@ namespace Lab3_Condominio
         }
         private void Leer(bool cp)
         {
-            if (cp==true)
+            if (cp == true)
             {
                 FileStream stream = new FileStream("Propietario.txt", FileMode.OpenOrCreate, FileAccess.Read);
                 StreamReader reader = new StreamReader(stream);
@@ -114,6 +114,7 @@ namespace Lab3_Condominio
             if (!leer2.Equals(""))
             {
                 Leer(false);
+                propiedad = propiedad.OrderBy(p => p.Cuota).ToList();
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = propiedad;
                 dataGridView1.Refresh();
@@ -125,7 +126,7 @@ namespace Lab3_Condominio
             Propietario agregarc = new Propietario();
             int c = 0;
             for (int i = 0; i < persona.Count; i++)
-                if (persona[i].Dpi== dpi_txt.Text) c++;
+                if (persona[i].Dpi == dpi_txt.Text) c++;
             if (c == 0)
             {
                 agregarc.Dpi = dpi_txt.Text;
@@ -137,7 +138,7 @@ namespace Lab3_Condominio
             else
             {
                 Propietario rep = persona.Find(p => p.Dpi == dpi_txt.Text);
-                MessageBox.Show(rep.Nombre+" ya está agregado con el DPI: " + rep.Dpi);
+                MessageBox.Show(rep.Nombre + " ya está agregado con el DPI: " + rep.Dpi);
             }
             dpi_txt.Text = "";
             nombre_txt.Text = "";
@@ -153,7 +154,7 @@ namespace Lab3_Condominio
             if (c == 0)
             {
                 Propietario nom = persona.Find(p => p.Dpi == dpi_cbx.Text);
-                nom.Cont+=1;
+                nom.Cont += 1;
                 agregarc.Nombre = nom.Nombre;
                 agregarc.Apellido = nom.Apellido;
                 agregarc.Nocasa = casa_txt.Text;
@@ -169,11 +170,18 @@ namespace Lab3_Condominio
             else
             {
                 Casa rep = propiedad.Find(p => p.Nocasa == casa_txt.Text);
-                MessageBox.Show("La casa número: "+rep.Nocasa + " ya está agregada.");
+                MessageBox.Show("La casa número: " + rep.Nocasa + " ya está agregada.");
             }
             dpi_cbx.Text = "";
             casa_txt.Text = "";
             cuota_txt.Text = "";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int mayorprom = persona.Max(al => al.Cont);
+            Propietario nombre = persona.Find(al => al.Cont == mayorprom);
+            MessageBox.Show(nombre.Nombre+" "+nombre.Apellido+" tiene "+nombre.Cont+ " propiedades.");
         }
     }
 }
