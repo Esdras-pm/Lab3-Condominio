@@ -44,9 +44,11 @@ namespace Lab3_Condominio
             this.casa_txt = new System.Windows.Forms.TextBox();
             this.dpi_cbx = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -175,6 +177,8 @@ namespace Lab3_Condominio
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackgroundImage = global::Lab3_Condominio.Properties.Resources.Meso;
+            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Controls.Add(this.button2);
@@ -197,6 +201,36 @@ namespace Lab3_Condominio
             this.panel1.Size = new System.Drawing.Size(721, 786);
             this.panel1.TabIndex = 0;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(594, 526);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(101, 82);
+            this.button5.TabIndex = 19;
+            this.button5.Text = "Propietario que debe pagar más";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(594, 427);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(101, 82);
+            this.button4.TabIndex = 18;
+            this.button4.Text = "Cuotas más altas y más bajas";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(594, 321);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(101, 82);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Propietario con mas propiedades";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -217,16 +251,6 @@ namespace Lab3_Condominio
             this.button2.Text = "Agregar Propiedad";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(594, 276);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(101, 82);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Propietario con más propiedades";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -263,6 +287,8 @@ namespace Lab3_Condominio
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 

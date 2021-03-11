@@ -33,6 +33,7 @@ namespace Lab3_Condominio
                     writer.WriteLine(p.Nombre);
                     writer.WriteLine(p.Apellido);
                     writer.WriteLine(p.Cont);
+                    writer.WriteLine(p.CuotaT);
                 }
                 writer.Close();
                 string[] dpis = new string[persona.Count];
@@ -70,6 +71,7 @@ namespace Lab3_Condominio
                     datos.Nombre = reader.ReadLine();
                     datos.Apellido = reader.ReadLine();
                     datos.Cont = int.Parse(reader.ReadLine());
+                    datos.CuotaT = float.Parse(reader.ReadLine());
                     persona.Add(datos);
                 }
                 //Cerrar el archivo, esta linea es importante porque sino despues de correr varias veces el programa daría error de que el archivo quedó abierto muchas veces. Entonces es necesario cerrarlo despues de terminar de leerlo.
@@ -159,6 +161,7 @@ namespace Lab3_Condominio
                 agregarc.Apellido = nom.Apellido;
                 agregarc.Nocasa = casa_txt.Text;
                 agregarc.Cuota = float.Parse(cuota_txt.Text);
+                nom.CuotaT += agregarc.Cuota;
                 propiedad.Add(agregarc);
                 guardar(true);
                 guardar(false);
@@ -180,8 +183,36 @@ namespace Lab3_Condominio
         private void button3_Click(object sender, EventArgs e)
         {
             int mayorprom = persona.Max(al => al.Cont);
-            Propietario nombre = persona.Find(al => al.Cont == mayorprom);
-            MessageBox.Show(nombre.Nombre+" "+nombre.Apellido+" tiene "+nombre.Cont+ " propiedades.");
+            List<Propietario> mayores = new List<Propietario>();
+            mayores = persona.FindAll(al => al.Cont == mayorprom);
+            for(int i=0;i<mayores.Count;i++)
+                MessageBox.Show(mayores[i].Nombre + " " + mayores[i].Apellido + " tiene " + mayores[i].Cont + " propiedades.");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            string mayores="", menores="";
+            propiedad = propiedad.OrderBy(p => p.Cuota).ToList();
+            for(int i = propiedad.Count - 1; i >= (propiedad.Count / 2); i--)
+            {
+                if (cont >= 3) break;
+                mayores += propiedad[i].Cuota.ToString() + " de la casa No." + propiedad[i].Nocasa + '\n';
+                cont++; 
+            } cont = 0;
+            for(int i=0;i<(propiedad.Count/2);i++)
+            {
+                menores += propiedad[i].Cuota.ToString() + " de la casa No." + propiedad[i].Nocasa + '\n';
+                cont++;
+                if (cont >= 3) break;
+            }
+            MessageBox.Show("Las cuotas más altas son:\n" + mayores+ '\n'+"Las menores son:\n"+menores);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Propietario pagarm = persona.OrderByDescending(p => p.CuotaT).First();
+            MessageBox.Show(pagarm.Nombre +" "+pagarm.Apellido+ " debe pagar en total: Q" + pagarm.CuotaT);
         }
     }
 }
